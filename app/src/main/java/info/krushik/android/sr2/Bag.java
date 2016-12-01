@@ -2,17 +2,26 @@ package info.krushik.android.sr2;
 
 
 public class Bag {
-    private int weight;
-    private String nameCompany;
-    private String purpose;
 
-    public Bag(int weight, String nameCompany, String purpose) {
+    private String name;
+    private int weight;
+    private Purpose purpose;
+
+    public Bag(String name, int weight, Purpose purpose) {
+        this.name = name;
         this.weight = weight;
-        this.nameCompany = nameCompany;
         this.purpose = purpose;
     }
 
-    public int getWeight() {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public float getWeight() {
         return weight;
     }
 
@@ -20,25 +29,37 @@ public class Bag {
         this.weight = weight;
     }
 
-    public String getNameCompany() {
-        return nameCompany;
-    }
-
-    public void setNameCompany(String nameCompany) {
-        this.nameCompany = nameCompany;
-    }
-
-    public String getPurpose() {
+    public Purpose getPurpose() {
         return purpose;
     }
 
-    public void setPurpose(String purpose) {
+    public void setPurpose(Purpose purpose) {
         this.purpose = purpose;
     }
 
     @Override
-    public String toString() {
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        return String.format("Вес: %s, Изготовитель: %s, назначение: %s", weight, nameCompany, purpose);
+        Bag bag = (Bag) o;
+
+        if (Float.compare(bag.weight, weight) != 0) return false;
+        if (name != null ? !name.equals(bag.name) : bag.name != null) return false;
+        return purpose == bag.purpose;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (weight != +0.0f ? Float.floatToIntBits(weight) : 0);
+        result = 31 * result + (purpose != null ? purpose.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Портфель: %s, вес: %s, Назначение: %s", name, weight, purpose);
     }
 }
